@@ -38,10 +38,6 @@ class UserModel extends \SQLite3
 
         $data = $result->fetchArray(SQLITE3_ASSOC);
 
-        if ($data == false) {
-            return null;
-        }
-
         return $data;
     }
 

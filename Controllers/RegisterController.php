@@ -41,31 +41,34 @@ class RegisterController extends BaseController
         $registeredIP = $user['ipDevice'];
 
         // Verifica se existe matricula registrada
-        if ($user == null) {
+        if ($user == false) {
             return header('Location: /?erro=Registration+Not+Found');
         }
 
-        // Verifica se o ip registrado no usuario nao e vazio e igual ao ip que esta registrando
+        //tem ip registrado no user e os ips sao iguais: registra 
         if (!empty($registeredIP) && $registeredIP == $ipRegistering) {
             $this->saveRecord($this->makeRecord($user));
             return header('Location: /?success=Registered');
         }
 
-        // Verifica se o ip registrado no usuario nao e vazio e diferente do ip que esta registrando
+        //tem ip registrado no user e os ips sao diferentes: erro
         if (!empty($registeredIP) && $registeredIP != $ipRegistering) {
             return header('Location: /?erro=Registration+used+on+another+device');
         }
 
-        // Verifica se o ip que registrou existe no db
-        if ($db->checkIPDeviceExists($ipRegistering)) {
-            return header('Location: /?erro=Device+used+on+another+registration');
-        }
+        $ipExistsInDb = $db->checkIPDeviceExists($ipRegistering);
 
-        // Verifica se o ip que registrou nao existe no db
-        if (!$db->checkIPDeviceExists($ipRegistering)) {
-            $db->saveNewIp($registration, $this->get_client_ip());
+        //nao tem ip registrado e o novo ip nao existe no db: registra
+        if (empty($registeredIP) && !$ipExistsInDb) {
+            $db->saveNewIp($registration, $ipRegistering);
             $this->saveRecord($this->makeRecord($user));
             return header('Location: /?success=Registered+point+and+new+device+registered');
         }
+
+        //nao tem ip registrado e o novo ip existe no db: erro
+        if (empty($registeredIP) && $ipExistsInDb) {
+            return header('Location: /?erro=Device+used+on+another+registration');
+        }
     }
+
 }
