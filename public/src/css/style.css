@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans", sans-serif;
+}
+
+body {
+    padding-top: 70px;
+    background-color: rgb(227, 178, 104);
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#formContainer {
+    background-color: rgb(213, 215, 217);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-control {
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
