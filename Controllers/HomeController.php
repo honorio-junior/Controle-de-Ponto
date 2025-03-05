@@ -1,12 +1,7 @@
 <?php
-
 namespace Controllers;
 
-require_once dirname(__DIR__) . '/autoload.php';
-
 use Models\UserModel;
-use Views\RenderView;
-
 
 class HomeController extends BaseController
 {
@@ -24,11 +19,12 @@ class HomeController extends BaseController
 
     function index()
     {
-        return new RenderView('index', [
+        return $this->view('index', [
             "ip" => $this->get_client_ip(),
             'erro' => $_GET['erro'] ?? '',
             'success' => $_GET['success'] ?? '',
             "userName" => $this->get_user_by_client_ip()['name']]
         );
     }
+
 }

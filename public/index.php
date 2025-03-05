@@ -1,5 +1,6 @@
 <?php
 
+require_once dirname(__DIR__) . '/autoload.php';
 date_default_timezone_set('America/Manaus');
 $route = $_SERVER['REQUEST_URI'];
 $route = trim($route, '/');

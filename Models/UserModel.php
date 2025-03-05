@@ -2,15 +2,8 @@
 
 namespace Models;
 
-use Exception;
-
-class UserModel extends \SQLite3
+class UserModel extends BaseModel
 {
-    function __construct()
-    {
-        $this->open(__DIR__ . '/database.sqlite');
-    }
-
     function getByIP($ip)
     {
         $stmt = $this->prepare('SELECT * FROM user WHERE ipDevice = :ip LIMIT 1');
@@ -85,4 +78,5 @@ class UserModel extends \SQLite3
             return false;
         }
     }
+
 }

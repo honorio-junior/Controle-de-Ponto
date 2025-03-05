@@ -1,11 +1,17 @@
 <?php
-
 namespace Controllers;
-
-require_once dirname(__DIR__) . '/autoload.php';
 
 class BaseController
 {
+    function view(string $view, ?array $data = null)
+    {
+        if(!empty($data)){
+            extract($data);
+        }
+
+        require_once dirname(__DIR__) . '/views/' . $view . '.php';
+    }
+
     function get_client_ip() {
         $ipaddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP']))
